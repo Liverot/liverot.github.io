@@ -1,10 +1,406 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-  </head>
-  <body>
-    TEST
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Martin Sweet — Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background:#f1ece1; color:#33343f; font-family:'Spectral',Georgia,serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  ::selection { background:#946000; color:#fff; }
+  a { color:inherit; }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 28px 80px; }
 
+  .top { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:30px 0 26px; border-bottom:1px solid #ddd4c2; }
+  .brand { display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; }
+  .name { font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:13px; letter-spacing:.22em; text-transform:uppercase; color:#946000; }
+  .role { font-family:'IBM Plex Sans',sans-serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#7c90a0; }
+  .top nav { display:flex; gap:22px; font-family:'IBM Plex Sans',sans-serif; font-size:12.5px; letter-spacing:.05em; }
+  .top nav a { color:#4e5166; text-decoration:none; border-bottom:1px solid #c9bea6; padding-bottom:1px; }
+
+  .hero { display:grid; grid-template-columns:200px 1fr; gap:44px; align-items:start; padding:54px 0 30px; }
+  .photo { width:200px; height:200px; object-fit:cover; border-radius:50px; display:block; box-shadow:0 14px 34px rgba(78,81,102,.28); border:1px solid #ddd4c2; }
+  .hero h1 { font-weight:600; font-size:46px; line-height:1.05; margin:0 0 8px; color:#2a2b34; letter-spacing:-.01em; }
+  .hero p { font-size:17px; line-height:1.62; margin:18px 0 14px; max-width:60ch; color:#3d3e49; }
+  .hero p + p { margin-top:0; }
+  .hero p:last-child { margin-bottom:0; }
+
+  .section-head { display:flex; align-items:center; gap:18px; margin:46px 0 8px; }
+  .section-head h2 { font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:#946000; margin:0; }
+  .section-head .rule { flex:1; height:1px; background:#ddd4c2; }
+
+  .card { background:#faf7ef; border:1px solid #e4dcc9; border-radius:6px; padding:34px 36px 30px; margin:26px 0; box-shadow:0 2px 0 rgba(78,81,102,.04), 0 18px 40px -28px rgba(78,81,102,.5); }
+  .card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+  .title-grp { display:flex; align-items:baseline; gap:16px; }
+  .num { font-family:'JetBrains Mono',monospace; font-size:14px; color:#946000; letter-spacing:.04em; }
+  .card-head h3 { font-weight:600; font-size:30px; line-height:1.1; margin:0; color:#2a2b34; }
+  .badge { font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:6px 13px; border-radius:30px; white-space:nowrap; }
+  .badge.rel { background:#946000; color:#fff; border:1px solid #946000; }
+  .badge.dev { background:transparent; color:#4e5166; border:1px solid #7c90a0; }
+
+  .first { font-size:16.5px; line-height:1.64; margin:16px 0 0; max-width:74ch; color:#3d3e49; }
+
+  details.about { margin:0; }
+  details.about > summary { list-style:none; display:inline-flex; align-items:center; gap:7px; margin-top:11px; cursor:pointer; font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:#946000; }
+  details.about > summary::-webkit-details-marker { display:none; }
+  details.about > summary .less { display:none; }
+  details.about[open] > summary .more { display:none; }
+  details.about[open] > summary .less { display:inline; }
+  .chev { font-size:13px; display:inline-block; transition:rotate .2s; }
+  details.about[open] > summary .chev { rotate:180deg; }
+  .ahead { font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:#946000; margin:18px 0 0; }
+  .abody { font-size:16.5px; line-height:1.64; margin:6px 0 0; max-width:74ch; color:#3d3e49; }
+
+  .cm { margin-top:4px; }
+  .code-toggle { display:none; }
+  .code-block { margin-top:10px; border-radius:5px; overflow:hidden; border:1px solid #d7cdb8; background:#1c1d24; }
+  .code-head { display:flex; align-items:center; gap:9px; padding:11px 18px; background:#1a1b21; border-bottom:1px solid #34353f; font-family:'JetBrains Mono',monospace; font-size:12px; color:#9aa6b4; }
+  .led { width:9px; height:9px; border-radius:50%; background:#946000; display:inline-block; }
+  .codewrap { position:relative; }
+  .codewrap pre { margin:0; max-height:200px; overflow:auto; padding:16px 22px; color:#cdd4de; font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.66; white-space:pre; tab-size:2; }
+  .code-block .codewrap pre::-webkit-scrollbar { width:10px; }
+  .code-block .codewrap pre::-webkit-scrollbar-thumb { background:#4e5166; border-radius:8px; }
+  .code-block .codewrap pre::-webkit-scrollbar-track { background:#1c1d24; }
+
+  .tagrow { margin-top:14px; }
+  .tag { display:inline-block; font-family:'IBM Plex Sans',sans-serif; font-size:12px; letter-spacing:.06em; color:#946000; border:1px solid #d8c08a; background:#f6eedb; padding:5px 12px; border-radius:4px; }
+
+  .car { margin-top:24px; }
+  .viewport { display:flex; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scroll-behavior:smooth; height:470px; border-radius:5px; border:1px solid #d7cdb8; background:#23242c; scrollbar-width:none; }
+  .viewport::-webkit-scrollbar { display:none; }
+  .slide { position:relative; min-width:100%; height:100%; scroll-snap-align:start; display:flex; align-items:center; justify-content:center; background:#23242c; }
+  .slide img { max-width:100%; max-height:100%; object-fit:contain; display:block; }
+  .arrow { position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:1px solid rgba(241,236,225,.35); background:rgba(28,29,36,.6); color:#f1ece1; font-size:22px; line-height:1; display:flex; align-items:center; justify-content:center; text-decoration:none; backdrop-filter:blur(2px); }
+  .arrow:hover { background:#946000; border-color:#946000; }
+  .arrow.prev { left:14px; }
+  .arrow.next { right:14px; }
+
+  .placeholder { margin-top:24px; height:200px; border-radius:5px; border:1px dashed #c5bca6; background:repeating-linear-gradient(45deg,#f4eede,#f4eede 11px,#efe7d3 11px,#efe7d3 22px); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+  .ph-1 { font-family:'IBM Plex Sans',sans-serif; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#a08a5a; }
+  .ph-2 { font-family:'Spectral',serif; font-style:italic; font-size:15px; color:#9a9285; }
+
+  .foot { margin-top:60px; padding-top:34px; border-top:1px solid #ddd4c2; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; }
+  .foot h2 { font-family:'IBM Plex Sans',sans-serif; font-weight:600; font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:#946000; margin:0 0 14px; }
+  .foot .links { display:flex; flex-direction:column; gap:7px; font-size:17px; }
+  .foot .links a { color:#2a2b34; text-decoration:none; }
+  .built { font-family:'IBM Plex Sans',sans-serif; font-size:12px; letter-spacing:.06em; color:#7c90a0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <span class="name">Martin Sweet</span>
+      <span class="role">Game Developer</span>
+    </div>
+    <nav>
+      <a href="mailto:martin@testsweet.dev">Email</a>
+      <a href="https://www.linkedin.com/in/martin-sweet/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img class="photo" src="img/martin.png" alt="Martin Sweet">
+    <div>
+      <h1>Hello, I’m Martin —<br>I build games.</h1>
+      <p>After working my way up through Customer Service and into Technical Support, I began learning to code in 2019 — using Python to make small tools that made life easier for the Support team. That sparked a love of system design. I picked up Unity and C# in 2020, then moved to Godot and GDScript in 2022.</p>
+      <p>I find immense satisfaction in elegant design and reusability — in breaking problems down to their fundamental elements and finding the simplicity in complex ones. I also love UI design.</p>
+      <p>I’m a passionate communicator and a firm believer that diverse teams make good products. Talking to each other like human beings is the only way to get a result that’s enjoyable to other human beings.</p>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>Selected Work</h2>
+    <span class="rule"></span>
+  </div>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="title-grp"><span class="num">01</span><h3>Rat King</h3></div>
+        <span class="badge rel">Released</span>
+      </div>
+      <div class="first">An exploration of 2D movement and single keyboard local multiplayer.</div>
+      <details class="about">
+        <summary><span class="more">Show more</span><span class="less">Show less</span><span class="chev">⌄</span></summary>
+        <div class="ahead">About</div>
+        <div class="abody">Made in one week for the Norwich Games Festival Game Jam in a team of two. The brief: medieval artwork and multiplayer on a single keyboard. The result is a hectic game where an illustrated Rat King springs to life on the pages of an illuminated portfolio. </div>
+        <div class="cm">
+          <div class="ahead" style="margin-top:22px;">Control Mapping</div>
+          <div class="abody">With up to four players sharing one keyboard, letting them remap keys to a comfortable layout was essential. A visual representation of the mapping was also needed. The below script shows how this was achieved.</div>
+          <div class="code-block">
+            <div class="code-head"><span class="led"></span>key_remap.gd</div>
+            <div class="codewrap"><pre>extends Control
+@export var key_shading: Dictionary[String,TextureRect]
+@export var input_instruction1: Label
+@export var input_key_display: Label
+@export var input_instruction2: Label
+@export var input_instruction3: Label
+@export var keyboard: TextureRect
+@export var confim_buttons: PanelContainer
+@export var button_1: Button
+var is_started: bool = false
+
+# [action_name, readable label, rat_index]
+const MAPPINGS: Array = [
+    ["RAT1_forward",  "Rat 1 Forward",  0],
+    ["RAT1_backward", "Rat 1 Backward", 0],
+    ["RAT2_forward",  "Rat 2 Forward",  1],
+    ["RAT2_backward", "Rat 2 Backward", 1],
+    ["RAT3_forward",  "Rat 3 Forward",  2],
+    ["RAT3_backward", "Rat 3 Backward", 2],
+    ["RAT4_forward",  "Rat 4 Forward",  3],
+    ["RAT4_backward", "Rat 4 Backward", 3],
+]
+var current_input_event: InputEvent
+var assigned_keys: Dictionary = {} # action_name -&gt; key text
+var counter: int = 0
+
+func begin() -&gt; void:
+    is_started = true
+    prompt_next()
+
+func _input(event: InputEvent) -&gt; void:
+    if is_started:
+        if event is InputEventKey and event.pressed:
+            print(event)
+            # grab the input event as current_input_event
+            current_input_event = event
+            # show the plain-text character / key name
+            input_key_display.text = event.as_text_key_label()
+            submit_key()
+
+# Prepares to take the next input
+func prompt_next() -&gt; void:
+    input_key_display.text = ""
+    if counter &gt;= MAPPINGS.size():
+        is_started = false
+        input_instruction1.text = ""
+        input_instruction3.text = ""
+        show_confim()
+        return
+    var label: String = MAPPINGS[counter][1]
+    input_instruction1.text = "Press the key that will move %s:" % label
+
+func submit_key() -&gt; void:
+    # Error handling
+    if input_key_display.text == "":
+        input_instruction3.text = "You must select a key"
+        return
+    if input_key_display.text in assigned_keys.values():
+        input_instruction3.text = "Key already mapped, select another"
+        return
+    if !key_shading.has(input_key_display.text.to_lower()):
+        input_instruction3.text = "NAY! Pick another."
+        return
+    var action_name: String = MAPPINGS[counter][0]
+    var label: String = MAPPINGS[counter][1]
+    # applies the rat colour to the chosen key
+    var color: Color = Globals.rat_colours[MAPPINGS[counter][2]]
+    InputMap.action_add_event(action_name, current_input_event)
+    assigned_keys[action_name] = input_key_display.text
+    add_to_key_display(label, input_key_display.text, color)
+    counter += 1
+    input_instruction3.text = ""
+    prompt_next()
+
+# adds the key / colour to the on-screen keyboard display
+func add_to_key_display(label: String, key_text: String, color: Color) -&gt; void:
+    var key = key_text.to_lower()
+    key_shading[key].show()
+    key_shading[key].modulate = color
+
+func show_confim() -&gt; void:
+    confim_buttons.show()
+    button_1.grab_focus()
+
+func reset() -&gt; void:
+    confim_buttons.hide()
+    counter = 0
+    for key in key_shading.keys():
+        key_shading[key].hide()
+    assigned_keys.clear()
+    is_started = true
+    prompt_next()
+
+func next_scene() -&gt; void:
+    get_parent().confirm()</pre></div>
+          </div>
+
+          <div class="ahead" style="margin-top:24px;">Rat King Movement</div>
+          <div class="abody">Moving the player became complicated when 8 inputs were involved. Each of the 4 individual rats could be moved forwards and backwards, which was displayed visually by physically moving each rat sprite.</div>
+          <div class="code-block">
+            <div class="code-head"><span class="led"></span>rat_movement.gd</div>
+            <div class="codewrap"><pre>var total_movement = Vector2.ZERO
+var rats = [
+    { "sprite": rat1, "prefix": "RAT1" },
+    { "sprite": rat2, "prefix": "RAT2" },
+    { "sprite": rat3, "prefix": "RAT3" },
+    { "sprite": rat4, "prefix": "RAT4" },
+]
+
+for x in rats.size():
+    rats[x].sprite.get_child(1).set_animation(&amp;"default")
+
+    var fwd: bool = Input.is_action_pressed(rats[x].prefix + "_forward")
+    var back: bool = Input.is_action_pressed(rats[x].prefix + "_backward")
+    if is_control_inverted:
+        fwd = Input.is_action_pressed(rats[x].prefix + "_backward")
+        back = Input.is_action_pressed(rats[x].prefix + "_forward")
+    else:
+        fwd = Input.is_action_pressed(rats[x].prefix + "_forward")
+        back = Input.is_action_pressed(rats[x].prefix + "_backward")
+
+    rat_input_changed.emit(rats[x].prefix, fwd, back)
+    if rat_hunger[x] &lt; get_parent().max_rat_hunger:
+        var input_strength := 0.0
+        if fwd:
+            input_strength += 1.0
+            rats[x].sprite.get_child(1).position = rat_sprite_position + Vector2(100, 0)
+        if back:
+            input_strength -= 1.0
+            rats[x].sprite.get_child(1).position = rat_sprite_position + Vector2(-100, 0)
+        if input_strength != 0.0:
+            turn_on_rat(rats[x].sprite)
+            rat_hunger[x] += 1 * delta
+            rat_hunger_changed.emit(x, rat_hunger[x])
+            var direction = Vector2.RIGHT.rotated(rats[x].sprite.global_rotation)
+            total_movement += direction * input_strength
+        else:
+            rats[x].sprite.get_child(1).position = rat_sprite_position
+            turn_off_rat(rats[x].sprite)
+    else:
+        rats[x].sprite.get_child(1).set_animation(&amp;"tired")
+
+velocity = total_movement * (Vector2(base_speed, base_speed) + Vector2(get_parent().score * 20, get_parent().score * 20)) * speed_mod
+move_and_slide()</pre></div>
+          </div>
+        </div>
+      </details>
+      <div class="tagrow"><span class="tag">Playable on itch.io</span></div>
+      <div class="car">
+        <div class="viewport">
+          <div class="slide" id="rk-s0">
+            <img src="img/ratking-1.png" alt="Title screen — hand-illustrated medieval artwork">
+            <a class="arrow prev" href="#rk-s3" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rk-s1" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="rk-s1">
+            <img src="img/ratking-2.png" alt="Up to four rats share a single keyboard">
+            <a class="arrow prev" href="#rk-s0" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rk-s2" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="rk-s2">
+            <img src="img/ratking-3.png" alt="Medieval insults fly across the illuminated page">
+            <a class="arrow prev" href="#rk-s1" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rk-s3" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="rk-s3">
+            <img src="img/ratking-4.png" alt="Remapping keys on an illustrated keyboard">
+            <a class="arrow prev" href="#rk-s2" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rk-s0" aria-label="Next slide">›</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="title-grp"><span class="num">02</span><h3>OutPost</h3></div>
+        <span class="badge dev">In development</span>
+      </div>
+      <div class="first">Playing with 2D control nodes in a 3D environment.</div>
+      <details class="about">
+        <summary><span class="more">Show more</span><span class="less">Show less</span><span class="chev">⌄</span></summary>
+        <div class="ahead">About</div>
+        <div class="abody">A “Papers, Please”-like set aboard a retro space station. You play the Post Master, directing post to the correct destination — if it meets the day’s ever-changing sending criteria. To preserve the retro feel, destinations and criteria appear on a functioning monochrome monitor, an exploration of SubViewports in a 3D environment. Players can open letters, read them and redact them, built from Control nodes with a clickable button for every word.</div>
+      </details>
+      <div class="car">
+        <div class="viewport">
+          <div class="slide" id="op-s0">
+            <img src="img/outpost-1.png" alt="The daily briefing on the postal terminal">
+            <a class="arrow prev" href="#op-s3" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#op-s1" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="op-s1">
+            <img src="img/outpost-2.png" alt="A working monochrome monitor — a SubViewport in 3D">
+            <a class="arrow prev" href="#op-s0" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#op-s2" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="op-s2">
+            <img src="img/outpost-3.png" alt="Sort each parcel by its destination">
+            <a class="arrow prev" href="#op-s1" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#op-s3" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="op-s3">
+            <img src="img/outpost-4.png" alt="Open, read and redact the letters">
+            <a class="arrow prev" href="#op-s2" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#op-s0" aria-label="Next slide">›</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="title-grp"><span class="num">03</span><h3>Reign on my Parade</h3></div>
+        <span class="badge dev">In development</span>
+      </div>
+      <div class="first">Inspired by autobattlers like Hearthstone: Battlegrounds and The Bazaar, a non-violent, single-player take on the genre.</div>
+      <details class="about">
+        <summary><span class="more">Show more</span><span class="less">Show less</span><span class="chev">⌄</span></summary>
+        <div class="ahead">About</div>
+        <div class="abody">Build your parade, matching paraders into powerful combos to impress the crowd across four stats — Whimsy, Might, Opulence and Debauchery — but tailor it to your audience. Those gathered outside the cathedral won’t want much Debauchery, while the crowd by the Training Grounds yearn for displays of Might.</div>
+      </details>
+      <div class="car">
+        <div class="viewport">
+          <div class="slide" id="rp-s0">
+            <img src="img/reign-1.png" alt="Title screen">
+            <a class="arrow prev" href="#rp-s2" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rp-s1" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="rp-s1">
+            <img src="img/reign-2.png" alt="Build your parade from a roster of paraders">
+            <a class="arrow prev" href="#rp-s0" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rp-s2" aria-label="Next slide">›</a>
+          </div>
+          <div class="slide" id="rp-s2">
+            <img src="img/reign-3.png" alt="Impress the crowd across four competing stats">
+            <a class="arrow prev" href="#rp-s1" aria-label="Previous slide">‹</a>
+            <a class="arrow next" href="#rp-s0" aria-label="Next slide">›</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  <footer class="foot">
+    <div>
+      <h2>Get in touch</h2>
+      <div class="links">
+        <a href="mailto:martin@testsweet.dev">martin@testsweet.dev</a>
+        <a href="https://www.linkedin.com/in/martin-sweet/" target="_blank" rel="noopener">linkedin.com/in/martin-sweet</a>
+      </div>
+    </div>
+    <span class="built">2026</span>
+  </footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.viewport').forEach(function (v) {
+  var timer = setInterval(advance, 5000);
+  function advance() {
+    var w = v.clientWidth;
+    if (v.scrollLeft + w >= v.scrollWidth - 4) v.scrollTo({ left: 0, behavior: 'smooth' });
+    else v.scrollBy({ left: w, behavior: 'smooth' });
+  }
+  v.addEventListener('pointerenter', function () { clearInterval(timer); });
+  v.addEventListener('pointerleave', function () { timer = setInterval(advance, 3000); });
+});
+</script>
+</body>
 </html>
