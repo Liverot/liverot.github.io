@@ -88,6 +88,29 @@
   .foot .links { display:flex; flex-direction:column; gap:7px; font-size:17px; }
   .foot .links a { color:#2a2b34; text-decoration:none; }
   .built { font-family:'IBM Plex Sans',sans-serif; font-size:12px; letter-spacing:.06em; color:#7c90a0; }
+
+  @media (max-width: 680px) {
+    .wrap { padding:0 18px 56px; }
+    .top { padding:22px 0 18px; }
+    .top nav { gap:18px; }
+    .hero { grid-template-columns:1fr; gap:22px; padding:34px 0 20px; }
+    .photo { width:124px; height:124px; border-radius:30px; }
+    .hero h1 { font-size:32px; }
+    .hero h1 br { display:none; }
+    .hero p { font-size:16px; margin:14px 0 12px; }
+    .section-head { margin:34px 0 6px; gap:12px; }
+    .card { padding:24px 20px 22px; margin:18px 0; }
+    .card-head h3 { font-size:24px; }
+    .title-grp { gap:12px; }
+    .first, .abody { font-size:16px; }
+    .viewport { height:300px; }
+    .arrow { width:38px; height:38px; font-size:19px; }
+    .arrow.prev { left:10px; }
+    .arrow.next { right:10px; }
+    .code-head { padding:10px 14px; }
+    .codewrap pre { padding:14px 16px; font-size:12px; }
+    .foot { margin-top:44px; padding-top:26px; }
+  }
 </style>
 </head>
 <body>
@@ -99,7 +122,7 @@
       <span class="role">Game Developer</span>
     </div>
     <nav>
-      <a href="mailto:martin@testsweet.dev">Email</a>
+      <a href="/cdn-cgi/l/email-protection#84e9e5f6f0edeac4f0e1f7f0f7f3e1e1f0aae0e1f2">Email</a>
       <a href="https://www.linkedin.com/in/martin-sweet/" target="_blank" rel="noopener">LinkedIn</a>
     </nav>
   </header>
@@ -381,7 +404,7 @@ move_and_slide()</pre></div>
     <div>
       <h2>Get in touch</h2>
       <div class="links">
-        <a href="mailto:martin@testsweet.dev">martin@testsweet.dev</a>
+        <a href="/cdn-cgi/l/email-protection#fd909c8f899493bd89988e898e8a989889d399988b"><span class="__cf_email__" data-cfemail="e28f8390968b8ca2968791969195878796cc868794">[email&#160;protected]</span></a>
         <a href="https://www.linkedin.com/in/martin-sweet/" target="_blank" rel="noopener">linkedin.com/in/martin-sweet</a>
       </div>
     </div>
@@ -390,17 +413,5 @@ move_and_slide()</pre></div>
 
 </div>
 
-<script>
-document.querySelectorAll('.viewport').forEach(function (v) {
-  var timer = setInterval(advance, 5000);
-  function advance() {
-    var w = v.clientWidth;
-    if (v.scrollLeft + w >= v.scrollWidth - 4) v.scrollTo({ left: 0, behavior: 'smooth' });
-    else v.scrollBy({ left: w, behavior: 'smooth' });
-  }
-  v.addEventListener('pointerenter', function () { clearInterval(timer); });
-  v.addEventListener('pointerleave', function () { timer = setInterval(advance, 3000); });
-});
-</script>
-</body>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
